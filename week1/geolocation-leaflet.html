@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang = "en">
+	<head>
+		<meta charset = "utf-8" />
+		<title>Leaflet Testing</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
+ 		<script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
+	</head>
+
+	<body onload="init()">
+		<div class="container">
+			<form name="coords">
+
+			<div class="form=group">
+				<label for="x">Longitude</label>
+				<input class="form-control" type="number" step="0.0001" placeholder="-119.6731" name="lon">
+			</div>
+			<div class="form=group">
+				<label for="y">Latitude</label>
+				<input class="form-control" type="number" step="0.0001" placeholder="39.4983" name="lat">
+			</div>
+			<div class="form-group">
+              	<button type="button" class="btn btn-lg btn-primary btn-block" style="margin-top: 10px;" onclick="addCoords()">Add Coordinates</button>
+            </div>
+            <div class="form-group">
+              	<button type="button" class="btn btn-lg btn-primary btn-block" style="margin-top: 10px;" onclick="geoFindMe()">Get Coordinates</button>
+            </div>
+
+            </form>
+		</div>
+		<hr>
+		<div id="locMap" style="height: 600px;"></div>
+
+	   <script language="javascript">
+	   	var map;
+  		var popup = L.popup();
+  		var marker = L.marker()
+
+        // function geoFindMe() {
+        // 	var lat = 39.1297;
+        // 	var lon = -119.6731;
+        // 	if(!navigator.geolocation){
+        // 		console.log('Cannot get coordinates')
+        // 	}
+        // }
+
+        // function to initialize map on page load. Hard code (lat, lon) but can get it.
+  		function init() {
+  			var lat = 39.4983;
+        	var lon = -119.7769;
+     		map = new L.Map('locMap');
+     		popup = new L.Popup();
+
+     		L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+						attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+     					}).addTo(map);
+     		map.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text.
+
+			// center map on coordinates
+     		var reno = new L.LatLng(lat, lon);
+     		map.setView(reno, 13);
+
+			// add marker to map
+			// var marker = L.marker(reno).addTo(map);
+
+     		// on click, get coordinates
+     		map.on('click', onMapClick);
+  		}
+
+      //Listener function taking an event object
+      function onMapClick(e) {
+  		// add marker to map of clicked position
+  		var marker = L.marker(e.latlng).addTo(map);
+
+      	 //map click event object (e) has latlng property which is a location at which the click occured.
+         //popup
+         //  .setLatLng(e.latlng)
+         //  .setContent("You clicked the map at " + e.latlng.toString())
+         //  .openOn(map);
+      }
+
+      function addCoords() {
+      	var lat = document.forms["coords"]["lat"].value;
+      	var lon = document.forms["coords"]["lon"].value;
+      	var newCoords = new L.LatLng(lat, lon);
+      	var marker = L.marker(newCoords).addTo(map);
+      	map.setView(newCoords, 13);
+      }
+
+   </script>
+
+		// <script>
+		// 	function geoFindMe() {
+
+		// 	  if (!navigator.geolocation){
+		// 	    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+		// 	    return;
+		// 	  }
+
+		// 	  function success(position) {
+		// 	    var latitude  = position.coords.latitude;
+		// 	    var longitude = position.coords.longitude;
+
+		// 	    var mymap = L.map('locMap').setView([latitude, longitude], 13);
+		// 	    var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+		// 			attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+		// 		}).addTo(mymap);
+		// 	    var marker = L.marker([latitude, longitude]).addTo(mymap);
+		// 	    document.getElementByID("locMap").innerHTML = mymap;
+		// 	  };
+
+		// 	  function error() {
+		// 	    output.innerHTML = "Unable to retrieve your location";
+		// 	  };
+
+		// 	  navigator.geolocation.getCurrentPosition(success, error);
+		// 	}
+		// </script>
+	</body>
+</html>
