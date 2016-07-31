@@ -10,24 +10,37 @@
 
 	<body onload="init()">
 		<div class="container">
-			<form name="coords">
-
-			<div class="form=group">
-				<label for="x">Longitude</label>
-				<input class="form-control" type="number" step="0.0001" placeholder="-119.6731" name="lon">
+			<div class="row">
+				<div class="col-sm-6">
+					<h2>Enter coordinates</h2>
+					<p>Enter longitude and latitude coordinates, then press go to coordinates.</p>
+					<form name="enterCoords">
+						<div class="form-group">
+							<label for="lon">Longitude</label>
+							<input class="form-control" type="number" step="0.0001" placeholder="-119.6731" name="lon">
+						</div>
+						<div class="form-group">
+							<label for="lat">Latitude</label>
+							<input class="form-control" type="number" step="0.0001" placeholder="39.4983" name="lat">
+						</div>
+						<button type="button" class="btn btn-lg btn-primary" style="margin-top: 10px;" onclick="addCoords()">Go To Coordinates</button>
+					</form>
+				</div>
+				<div class="col-sm-6">
+					<h2>Get coordinates</h2>
+					<p>Click on the map to get the coordinates of the location of the click.</p>
+					<form name="getCoords">
+						<div class="form-group">
+							<label for="clickLon">Clicked Longitude</label>
+							<input class="form-control" type="number" step="0.0001" name="clickLon">
+						</div>
+						<div class="form-group">
+							<label for="clickLat">Clicked Latitude</label>
+							<input class="form-control" type="number" step="0.0001" name="clickLat">
+						</div>
+					</form>
+				</div>
 			</div>
-			<div class="form=group">
-				<label for="y">Latitude</label>
-				<input class="form-control" type="number" step="0.0001" placeholder="39.4983" name="lat">
-			</div>
-			<div class="form-group">
-              	<button type="button" class="btn btn-lg btn-primary btn-block" style="margin-top: 10px;" onclick="addCoords()">Add Coordinates</button>
-            </div>
-            <div class="form-group">
-              	<button type="button" class="btn btn-lg btn-primary btn-block" style="margin-top: 10px;" onclick="geoFindMe()">Get Coordinates</button>
-            </div>
-
-            </form>
 		</div>
 		<hr>
 		<div id="locMap" style="height: 600px;"></div>
@@ -37,18 +50,10 @@
   		var popup = L.popup();
   		var marker = L.marker()
 
-        // function geoFindMe() {
-        // 	var lat = 39.1297;
-        // 	var lon = -119.6731;
-        // 	if(!navigator.geolocation){
-        // 		console.log('Cannot get coordinates')
-        // 	}
-        // }
-
         // function to initialize map on page load. Hard code (lat, lon) but can get it.
   		function init() {
-  			var lat = 39.4983;
-        	var lon = -119.7769;
+				var lat = 39.4983;
+        var lon = -119.7769;
      		map = new L.Map('locMap');
      		popup = new L.Popup();
 
@@ -72,17 +77,22 @@
       function onMapClick(e) {
   		// add marker to map of clicked position
   		var marker = L.marker(e.latlng).addTo(map);
-
-      	 //map click event object (e) has latlng property which is a location at which the click occured.
-         //popup
-         //  .setLatLng(e.latlng)
-         //  .setContent("You clicked the map at " + e.latlng.toString())
-         //  .openOn(map);
+			document.forms["getCoords"]["clickLon"].value = e.latlng.lng.toFixed(4);
+			document.forms["getCoords"]["clickLat"].value = e.latlng.lat.toFixed(4);
+			// map click event object (e) has latlng property which is a location at which the click occured.
+			// popup
+			//  .setLatLng(e.latlng)
+			//  .setContent("You clicked the map at " + e.latlng.toString())
+			//  .openOn(map);
+			// testing to see the the coordinates in the console.
+			// console.log(e.latlng);
+			// console.log(e.latlng.lat);
+			// console.log(e.latlng.lng)
       }
 
       function addCoords() {
-      	var lat = document.forms["coords"]["lat"].value;
-      	var lon = document.forms["coords"]["lon"].value;
+      	var lat = document.forms["enterCoords"]["lat"].value;
+      	var lon = document.forms["enterCoords"]["lon"].value;
       	var newCoords = new L.LatLng(lat, lon);
       	var marker = L.marker(newCoords).addTo(map);
       	map.setView(newCoords, 13);
