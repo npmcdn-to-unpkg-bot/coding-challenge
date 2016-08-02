@@ -1,0 +1,31 @@
+<% include ./partials/header %>
+
+<div class="ui main text container">
+  <div class="ui huge header">Nevada Fauna</div>
+
+    <% blogs.forEach(function(blog){ %>
+      <div class="content" style="background-color: white; margin: 10px auto;">
+
+      <div class="item">
+        <div class="image">
+          <img class="blog-image" src="<%= blog.image %>" alt="image" width="650px" />
+        </div>
+        <div class="content">
+          <a href="/blogs/<%= blog._id %>" class="header"><%= blog.title %></a>
+          <div class="meta">
+            <span><%=blog.created.toDateString()%></span>
+          </div>
+          <div class="description">
+            <p><%- blog.body.substring(0, 100) %>...</p>
+          </div>
+          <div class="extra">
+            <a href="/blogs/<%= blog._id %>">Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+
+</div>
+
+<% include ./partials/footer %>

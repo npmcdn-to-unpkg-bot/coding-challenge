@@ -1,0 +1,23 @@
+i.icon {
+  font-size:2em;
+}
+.container.main {
+  margin-top: 7em;
+}
+
+#delete {
+  display: inline;
+}
+
+img.blog-image {
+  width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body {
+  background-image: url(/img/topo_bg.png);
+  background-color: #D6CDAF;
+  background-size: 50%;
+  background-attachment: fixed;
+}
