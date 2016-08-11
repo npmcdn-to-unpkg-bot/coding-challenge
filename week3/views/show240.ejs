@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang = "en">
+	<head>
+		<meta charset = "utf-8" />
+		<title>NDOW 240</title>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+
+		<% include ./partials/navigation %>
+
+		<div class="container" class="col-sm-12">
+    	<div class="row">
+				<h2 class="col-sm-6 col-sm-offset-3" style="text-align: center;">Nevada Department of Wildlife</h2>
+				<h3 class="col-sm-6 col-sm-offset-3" style="text-align: center;">Wildlife Sight Record - Form 240</h3>
+        <div class="col-sm-8 col-sm-offset-2">
+					<hr>
+					<div class="bg-info">
+						<p class="text-muted" style="padding: 5px 10px;">Fields on this page are read only. To make changes click the Edit Record button at the bottom. To delete this record from the database click the Delete Record button.</p>
+					</div>
+					<hr>
+            <form action="/encounters" method="POST" name="encForm">
+
+							<div class="form-group">
+									<label for="date">Date</label>
+									<input class="form-control" type="date" name="encounter[date]" readonly value="<%= encounter.date %>">
+							</div>
+							<div class="form-group">
+									<label for="observer">Observer</label>
+									<input class="form-control" type="text" name="encounter[observer]" readonly value="<%= encounter.observer %>">
+							</div>
+							<div class="form-group">
+									<label for="species">Species</label>
+                  <input class="form-control" type="text" name="encounter[species]" readonly value="<%= encounter.species %>">
+              </div>
+							<div class="form-group">
+									<label for="female">No. Female</label>
+                  <input class="form-control" type="number" name="encounter[female]" readonly value="<%= encounter.female %>">
+              </div>
+							<div class="form-group">
+									<label for="male">No. Male</label>
+                  <input class="form-control" type="number" name="encounter[male]" readonly value="<%= encounter.male %>">
+              </div>
+							<div class="form-group">
+									<label for="adult">No. Adult</label>
+                  <input class="form-control" type="number" name="encounter[adult]" readonly value="<%= encounter.adult %>">
+              </div>
+							<div class="form-group">
+									<label for="young">No. Young</label>
+                  <input class="form-control" type="number" name="encounter[young]" readonly value="<%= encounter.young %>">
+              </div>
+							<div class="form-group">
+									<label for="total">Total</label>
+                  <input class="form-control" type="number" name="encounter[total]" readonly value="<%= encounter.total %>">
+              </div>
+							<div class="form-group">
+									<label for="x">Longitude</label>
+									<input class="form-control" type="number" step="0.0001" name="encounter[x]" readonly value="<%= encounter.x %>">
+							</div>
+							<div class="form-group">
+									<label for="y">Latitude</label>
+									<input class="form-control" type="number" step="0.0001" name="encounter[y]" readonly value="<%= encounter.y %>">
+							</div>
+							<div class="form-group">
+									<label for="location">Location</label>
+									<input class="form-control" type="text" name="encounter[location]" readonly value="<%= encounter.location %>">
+							</div>
+							<div class="form-group">
+									<label for="comments">Comments</label>
+									<textarea name="encounter[comments]" class="form-control" cols="40"><%= encounter.comments %></textarea>
+							</div>
+              <div class="form-group">
+                  <a href="/encounters/<%= encounter._id %>/edit" class="btn btn-lg btn-warning btn-block">Edit Record</a>
+              </div>
+            </form>
+            <form method="POST" action="/encounters/<%= encounter._id %>?_method=DELETE">
+              <div class="form-group">
+                  <button class="btn btn-lg btn-danger btn-block" style="margin-top: 10px;">Delete Record</button>
+              </div>
+
+            </form>
+            <a href="/encounters">Go Back</a>
+        </div>
+    	</div>
+		</div>
+
+	</body>
+</html>
