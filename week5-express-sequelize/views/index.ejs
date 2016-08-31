@@ -1,0 +1,14 @@
+<div>
+    <form action="/users" method="post">
+        <input type="text" name="obs[first_name]" placeholder="first name">
+        <input type="text" name="obs[last_name]" placeholder="last name">
+        <input type="text" name="obs[email]" placeholder="email">
+        <button type="submit" name="add">ADD!</button>
+    </form>
+
+    <ul>
+        <% users.forEach(function(user){ %>
+            <li> <%= user.first_name %> <%= user.last_name %> - <em><%= user.email %></em> <a href="/users/<%= user.id %>">[show]</a></li>
+        <% }) %>
+    </ul>
+</div>

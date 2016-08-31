@@ -1,0 +1,6 @@
+<form action="/users/<%= user.id %>?_method=PUT" method="post">
+    <input type="text" name="obs[first_name]" value="<%= user.first_name %>">
+    <input type="text" name="obs[last_name]" value="<%= user.last_name %>">
+    <input type="text" name="obs[email]" value="<%= user.email %>">
+    <button type="submit" name="save">Save</button>
+</form>

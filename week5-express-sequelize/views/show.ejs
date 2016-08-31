@@ -1,0 +1,16 @@
+<a href="/users">back</a>
+
+<ul>
+    <li>ID: <%= user.id %></li>
+    <li>First Name: <%= user.first_name %></li>
+    <li>Last Name: <%= user.last_name %></li>
+    <li>Email: <%= user.email %></li>
+    <li>Created At: <%= user.created_at %></li>
+    <li>Updated At: <%= user.updated_at %></li>
+</ul>
+
+<a href="/user/<%= user.id %>/edit">edit user</a>
+
+<form class="" action="/users/<%= user.id %>?_method=DELETE" method="post">
+    <button type="submit" name="delete-rec">Delete User</button>
+</form>
